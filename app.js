@@ -8,11 +8,12 @@ const fornecedoresRoutes = require('./DTOS/fornecedoresRoutes.js');
 const produtosRoutes = require('./DTOS/produtosRoutes.js');
 const itemEstoqueRoutes = require('./DTOS/itemEstoqueRoutes.js');
 const clientesRoutes = require('./DTOS/clientesRoutes.js');
+const veiculosRoutes = require('./DTOS/veiculosRoutes.js');
 
 const app = express();
 app.use(bodyParser.json());
 
-// Configuração do MySQL
+
 const db = mysql.createConnection({
     host: "127.0.0.1",
     port: 3306,
@@ -30,34 +31,19 @@ db.connect((err) => {
 });
 
 
-// Passa a conexão do banco de dados para motoristaRoutes
 app.use('/', motoristaRoutes(db));
 app.use('/', fornecedoresRoutes(db));
 app.use('/', produtosRoutes(db));
 app.use('/', itemEstoqueRoutes(db));
 app.use('/', clientesRoutes(db));
+app.use('/', veiculosRoutes(db));
 app.use('/', router);
 
-// Defina e configure a porta do servidor
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
+
 module.exports = db;
-
-// Rota para obter todos os clientes
-router.get('/clientes', (req, res) => {
-    db.query('SELECT * FROM Cliente', (err, results) => {
-        if (err) {
-            console.log(err);
-            return res.status(500).send('Erro ao buscar clientes');
-        }
-        res.json(results);
-    });
-});
-
-
-
-
-
 module.exports = router;

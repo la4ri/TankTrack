@@ -4,6 +4,17 @@ const router = express.Router();
 // Essa função receberá a conexão com o banco de dados
 function clientesRoutes(db) {
 
+    // Rota para obter todos os clientes
+    router.get('/clientes', (req, res) => {
+        db.query('SELECT * FROM Cliente', (err, results) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).send('Erro ao buscar clientes');
+            }
+            res.json(results);
+        });
+    });
+
     // Rota para listar cliente por nome
     router.get('/clientes/:nome', (req, res) => {
         const nome_cliente = req.params.nome;
