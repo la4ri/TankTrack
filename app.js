@@ -9,16 +9,19 @@ const produtosRoutes = require('./DTOS/produtosRoutes.js');
 const itemEstoqueRoutes = require('./DTOS/itemEstoqueRoutes.js');
 const clientesRoutes = require('./DTOS/clientesRoutes.js');
 const veiculosRoutes = require('./DTOS/veiculosRoutes.js');
+const rotasRoutes = require('./DTOS/rotasRoutes.js');
+const sauderoutes = require('./DTOS/sauderoutes.js');
+const viagemRoutes = require('./DTOS/viagemRoutes.js');
 
 const app = express();
 app.use(bodyParser.json());
 
 
 const db = mysql.createConnection({
-    host: "127.0.0.1",
-    port: 3306,
+    host: "monorail.proxy.rlwy.net",
+    port: 19967,
     user: 'root',
-    password: 'admin',
+    password: 'fiGARhOKCvylUtemfLFSvzIIPlMsLauD',
     database: 'railway'
 });
 
@@ -37,10 +40,13 @@ app.use('/', produtosRoutes(db));
 app.use('/', itemEstoqueRoutes(db));
 app.use('/', clientesRoutes(db));
 app.use('/', veiculosRoutes(db));
+app.use('/', rotasRoutes(db));
+app.use('/', sauderoutes(db));
+app.use('/', viagemRoutes(db));
 app.use('/', router);
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3300;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
