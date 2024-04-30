@@ -12,6 +12,8 @@ const veiculosRoutes = require('./DTOS/veiculosRoutes.js');
 const rotasRoutes = require('./DTOS/rotasRoutes.js');
 const sauderoutes = require('./DTOS/sauderoutes.js');
 const viagemRoutes = require('./DTOS/viagemRoutes.js');
+const usuarioRoutes = require('./DTOS/usuarioRoutes.js');
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -43,6 +45,8 @@ app.use('/', veiculosRoutes(db));
 app.use('/', rotasRoutes(db));
 app.use('/', sauderoutes(db));
 app.use('/', viagemRoutes(db));
+app.use('/', usuarioRoutes(db));
+
 app.use('/', router);
 
 
