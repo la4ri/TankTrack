@@ -6,9 +6,9 @@ function usuarioRoutes(db) {
 
     // Cria um novo usuário
     router.post('/usuarios', (req, res) => {
-        const { nome_usuario, email_usuario, senha_usuario, tipo_usuario } = req.body;
-        db.query('INSERT INTO Usuario (nome_usuario, email_usuario, senha_usuario, tipo_usuario) VALUES (?, ?, ?, ?)',
-            [nome_usuario, email_usuario, senha_usuario, tipo_usuario],
+        const { nome_usuario, email_usuario, senha_usuario, permissao  } = req.body;
+        db.query('INSERT INTO Usuario (nome_usuario, email_usuario, senha_usuario, permissao ) VALUES (?, ?, ?, ?)',
+            [nome_usuario, email_usuario, senha_usuario, permissao ],
             (err, result) => {
                 if (err) {
                     console.log(err);
@@ -47,9 +47,9 @@ function usuarioRoutes(db) {
     // Atualiza um usuário pelo ID
     router.put('/usuarios/:id', (req, res) => {
         const id_usuario = req.params.id;
-        const { nome_usuario, email_usuario, senha_usuario, tipo_usuario } = req.body;
-        db.query('UPDATE Usuario SET nome_usuario=?, email_usuario=?, senha_usuario=?, tipo_usuario=? WHERE id_usuario=?',
-            [nome_usuario, email_usuario, senha_usuario, tipo_usuario, id_usuario],
+        const { nome_usuario, email_usuario, senha_usuario, permissao  } = req.body;
+        db.query('UPDATE Usuario SET nome_usuario=?, email_usuario=?, senha_usuario=?, permissao =? WHERE id_usuario=?',
+            [nome_usuario, email_usuario, senha_usuario, permissao , id_usuario],
             (err, result) => {
                 if (err) {
                     console.log(err);
