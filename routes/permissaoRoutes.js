@@ -18,9 +18,9 @@ function permissaoRoutes(db) {
 
     // Rota para criar uma nova permissão
     router.post('/permissoes', (req, res) => {
-        const { descricao_permissao, nivel_acesso_permissao, id_usuario } = req.body;
-        db.query('INSERT INTO Permissao (descricao_permissao, nivel_acesso_permissao, id_usuario) VALUES (?, ?, ?)',
-            [descricao_permissao, nivel_acesso_permissao, id_usuario],
+        const { descricao_permissao, nivel_acesso_permissao } = req.body;
+        db.query('INSERT INTO Permissao (descricao_permissao, nivel_acesso_permissao) VALUES (?, ?)',
+            [descricao_permissao, nivel_acesso_permissao],
             (err, result) => {
                 if (err) {
                     console.log(err);
@@ -33,9 +33,9 @@ function permissaoRoutes(db) {
     // Rota para atualizar uma permissão existente
     router.put('/permissoes/:id', (req, res) => {
         const id_permissao = req.params.id;
-        const { descricao_permissao, nivel_acesso_permissao, id_usuario } = req.body;
-        db.query('UPDATE Permissao SET descricao_permissao=?, nivel_acesso_permissao=?, id_usuario=? WHERE id_permissao=?',
-            [descricao_permissao, nivel_acesso_permissao, id_usuario, id_permissao],
+        const { descricao_permissao, nivel_acesso_permissao } = req.body;
+        db.query('UPDATE Permissao SET descricao_permissao=?, nivel_acesso_permissao=? WHERE id_permissao=?',
+            [descricao_permissao, nivel_acesso_permissao, id_permissao],
             (err, result) => {
                 if (err) {
                     console.log(err);
