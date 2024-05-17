@@ -4,10 +4,10 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: qVxO5Y4EufogwrnUu4
-      MYSQL_DATABASE: loja_ch
+      MYSQL_ROOT_PASSWORD: fiGARhOKCvylUtemfLFSvzIIPlMsLauD
+      MYSQL_DATABASE: railway
     ports:
-      - "3306:3306"
+      - "19967:19967"
   app:
     build:
       context: .
