@@ -18,6 +18,7 @@ function login(db) {
 
             // Verifica se o usuário foi encontrado
             if (results.length === 0) {
+                // Se o usuário não foi encontrado, retornar o email e a senha fornecida para depuração
                 return res.status(401).send('E-mail ou senha incorretos');
             }
 
@@ -25,10 +26,12 @@ function login(db) {
 
             try {
                 // Compara a senha fornecida com a senha armazenada no banco de dados
+                
                 const senhaValida = await bcrypt.compare(senha_usuario, usuario.senha_usuario);
 
                 if (!senhaValida) {
-                    return res.status(401).send('E-mail ou senha incorretos');
+                    // Se a senha não for válida, retornar o email e a senha fornecida para depuração
+                    return res.status(401).send({ message: 'E-mail ou senha incorretos 1', email_usuario, senha_usuario });
                 }
 
                 // Autenticação bem-sucedida
@@ -42,5 +45,4 @@ function login(db) {
 
     return router;
 };
-
 module.exports = login;
