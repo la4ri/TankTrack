@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router();
 const mysql = require('mysql');
+const cors = require('cors');
 
 
 const motoristaRoutes = require('./routes/motoristaRoutes.js');
@@ -63,7 +64,9 @@ app.use('/', login(db));
 
 
 app.use('/', router);
-
+app.use(cors());
+app.use(express.json());
+app.use('/api', login(db));
 
 const PORT = process.env.PORT || 3300;
 app.listen(PORT, () => {

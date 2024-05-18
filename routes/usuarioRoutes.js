@@ -2,18 +2,18 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 
-// Essa função receberá a conexão com o banco de dados
+
 function usuarioRoutes(db) {
 
-    // Cria um novo usuário
+    
     router.post('/usuarios', async (req, res) => {
         const { nome_usuario, email_usuario, senha_usuario, id_permissao } = req.body;
 
         try {
-            // Hasheia a senha antes de armazenar
+            
             const hashedPassword = await bcrypt.hash(senha_usuario, 10);
 
-            // Insere o novo usuário no banco de dados
+            
             db.query('INSERT INTO Usuario (nome_usuario, email_usuario, senha_usuario, id_permissao) VALUES (?, ?, ?, ?)',
                 [nome_usuario, email_usuario, hashedPassword, id_permissao],
                 (err, result) => {
