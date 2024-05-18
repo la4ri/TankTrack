@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mysql = require('mysql');
-const router = express.Router();
 
 // Importar as rotas
 const motoristaRoutes = require('./routes/motoristaRoutes.js');
@@ -34,6 +33,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(express.json());
+app.use('/', router);
+app.use(cors());
+app.use('/api', login(db));
+
 
 // Configuração do banco de dados MySQL
 const db = mysql.createConnection({
@@ -77,4 +80,3 @@ app.listen(PORT, () => {
 });
 
 module.exports = db;
-module.exports = router;
