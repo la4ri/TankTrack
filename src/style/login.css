@@ -1,0 +1,128 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.background-login {
+    background-color: #D0A933;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    position: relative;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+}
+
+.container {
+    background-color: #FFFFFF;
+        width: 90%;
+        margin-top: 3%;
+        min-height: 94vh;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2%;
+}
+
+.logogrande {
+    align-self: center;
+        margin-bottom: auto;
+
+}
+
+.logopequena {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 2%;
+    margin-right: 6%;
+}
+
+.background-login {
+    background-color: #D0A933;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.container {
+    background-color: #FFFFFF;
+    width: 90%;
+    min-height: 94vh;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(82, 0, 5, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2% 0;
+}
+
+.logogrande {
+    align-self: center;
+    margin-top: 2%;
+    margin-bottom: 20px;
+}
+.login-form {
+    width: 300px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.2em;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #D0A933;
+    border-radius: 3px;
+    background-color: rgba(209, 169, 51, 0.2);
+}
+
+.botaologin {
+    width: 35%;
+    padding: 2%;
+    border: none;
+    border-radius: 3px;
+    background-color: #520005;
+    color: #fff;
+    margin-top: 2%;
+    cursor: pointer;
+    font-size: 1.4em;
+    text-decoration: none;
+    align-self: flex-start;
+}
+
+.botaologin:hover {
+    background-color: #D0A933;
+}
+
+.esquecersenha {
+    margin-top: 10%;
+    font-size: 1em;
+    align-self: center;
+}
