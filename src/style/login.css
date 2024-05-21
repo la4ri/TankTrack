@@ -4,27 +4,36 @@
     box-sizing: border-box;
 }
 
-body {
+.background-login {
     background-color: #D0A933;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
+    position: relative;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 94vh;
     background-color: #FFFFFF;
-    margin-top: 3%;
-    margin-left: 5%;
-    margin-right: 5%;
+        width: 90%;
+        margin-top: 3%;
+        min-height: 94vh;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2%;
 }
 
 .logogrande {
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 40%;
+    align-self: center;
+        margin-bottom: auto;
 
 }
 
@@ -36,17 +45,48 @@ body {
     margin-right: 6%;
 }
 
+.background-login {
+    background-color: #D0A933;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.container {
+    background-color: #FFFFFF;
+    width: 90%;
+    min-height: 94vh;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(82, 0, 5, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2% 0;
+}
+
+.logogrande {
+    align-self: center;
+    margin-top: 2%;
+    margin-bottom: 20px;
+}
 .login-form {
     width: 300px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -5%;
+    margin-top: 5%;
 }
 
 .form-group {
-    width: 120%;
+    width: 100%;
     margin-bottom: 20px;
 }
 
@@ -70,11 +110,11 @@ body {
     border-radius: 3px;
     background-color: #520005;
     color: #fff;
+    margin-top: 2%;
     cursor: pointer;
-    align-self: flex-start;
     font-size: 1.4em;
     text-decoration: none;
-    text-align: center;
+    align-self: flex-start;
 }
 
 .botaologin:hover {
@@ -82,6 +122,7 @@ body {
 }
 
 .esquecersenha {
-    margin-top: 7%;
+    margin-top: 10%;
     font-size: 1em;
+    align-self: center;
 }
