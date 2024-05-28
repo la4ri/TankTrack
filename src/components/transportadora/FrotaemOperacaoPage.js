@@ -7,7 +7,7 @@ import LateralMenu from '../LateralMenu.js';
 import MainContent from '../MainContent.js';
 import '../../style/menu.css';
 
-const TransportadoraPage = () => {
+const FrotaemOperacaoPage = () => {
     return (
         <div>
             <div className="containerTransportadora">
@@ -25,4 +25,4 @@ const TransportadoraPage = () => {
     );
 };
 
-export default TransportadoraPage;
+export default FrotaemOperacaoPage;

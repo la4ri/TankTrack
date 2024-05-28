@@ -21,8 +21,16 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
             if (!response.ok) {
                 throw new Error('Erro ao efetuar login');
             }
-
-            window.location.href = 'menu.html';
+            return response.json();
+        })
+        .then(data => {
+            console.log('Dados recebidos:', data); // Log para depuração
+            if (data.nome_usuario) {
+                localStorage.setItem('nome_usuario', data.nome_usuario);
+                window.location.href = 'menu.html';
+            } else {
+                throw new Error('Nome do usuário não encontrado na resposta');
+            }
         })
         .catch(error => {
             console.error('Erro:', error);

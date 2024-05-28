@@ -27,7 +27,7 @@ const LateralMenu = () => {
             <nav>
                 <ul className="menu-list">
                     <li>
-                        <Link to="/" className={`main-menu-link ${paginaSelecionada === '/' ? 'active' : ''}`} onClick={() => handleSelecionarPagina('/')}>
+                        <Link to="/menu" className={`main-menu-link ${paginaSelecionada === '/menu' ? 'active' : ''}`} onClick={() => handleSelecionarPagina('/menu')}>
                             <img src={homeIcon} alt="Home" className="home-icon" />
                         </Link>
                     </li>
