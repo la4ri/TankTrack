@@ -1,20 +1,23 @@
+// TransportadoraPage.js
 import React from 'react';
 import TopBar from '../TopBar.js';
 import SideBar from '../SideBar.js';
 import Header from '../Header.js';
-import LateralMenuMonitoramento from '../LateralMenuMonitoramento.js';
+import LateralMenu from '../LateralMenu.js';
+import MainContent from '../MainContent.js';
 import '../../style/menu.css';
 
-const MonitoramentoPage = () => {
+const FrotaemOperacaoPage = () => {
     return (
         <div>
-            <div className="containerMonitoramento">
+            <div className="containerTransportadora">
                 <TopBar />
                 <SideBar />
                 <Header />
                 <div className="content">
-                    <LateralMenuMonitoramento />
+                    <LateralMenu />
                     <div className="main-section">
+                        <MainContent />
                     </div>
                 </div>
             </div>
@@ -22,4 +25,4 @@ const MonitoramentoPage = () => {
     );
 };
 
-export default MonitoramentoPage;
+export default FrotaemOperacaoPage;

@@ -4,6 +4,7 @@ import TopBar from '../TopBar.js';
 import SideBar from '../SideBar.js';
 import Header from '../Header.js';
 import LateralMenu from '../LateralMenu.js';
+import MainContent from '../MainContent.js';
 import '../../style/menu.css';
 
 const TransportadoraPage = () => {
@@ -15,11 +16,9 @@ const TransportadoraPage = () => {
                 <Header />
                 <div className="content">
                     <LateralMenu />
-                    <main>
-                        <h1>Portal da Transportadora</h1>
-                        <p>Bem-vindo ao portal da transportadora. Aqui você pode monitorar os produtos.</p>
-                        {/* Adicione mais conteúdo e componentes conforme necessário */}
-                    </main>
+                    <div className="main-section">
+                        <MainContent />
+                    </div>
                 </div>
             </div>
         </div>

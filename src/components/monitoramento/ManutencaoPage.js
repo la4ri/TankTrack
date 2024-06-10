@@ -5,7 +5,7 @@ import Header from '../Header.js';
 import LateralMenuMonitoramento from '../LateralMenuMonitoramento.js';
 import '../../style/menu.css';
 
-const MonitoramentoPage = () => {
+const ManutencaoPage = () => {
     return (
         <div>
             <div className="containerMonitoramento">
@@ -22,4 +22,4 @@ const MonitoramentoPage = () => {
     );
 };
 
-export default MonitoramentoPage;
+export default ManutencaoPage;
