@@ -47,7 +47,7 @@ const LateralMenu = () => {
                 <ul className={`submenu ${mostrarPaginas ? "mostrar" : ""}`}>
                     <li><Link to="/cadastrosveiculos" className={paginaSelecionada === '/cadastrosveiculos' ? 'active' : ''} onClick={() => handleSelecionarPagina('/cadastrosveiculos')}>Cadastro de Veículos</Link></li>
                     <li><Link to="/disponibilidadeveiculos" className={paginaSelecionada === '/disponibilidadeveiculos' ? 'active' : ''} onClick={() => handleSelecionarPagina('/disponibilidadeveiculos')}>Disponibilidade</Link></li>
-                    <li><Link to="/statusSaude" className={paginaSelecionada === '/statusSaude' ? 'active' : ''} onClick={() => handleSelecionarPagina('/statusSaude')}>Status de Veículos</Link></li>
+                    <li><Link to="/manutencao" className={paginaSelecionada === '/manutencao' ? 'active' : ''} onClick={() => handleSelecionarPagina('/manutencao')}>Status de Veículos</Link></li>
                 </ul>
             </div>
         </aside>
