@@ -12,6 +12,10 @@ import StatusSaudePage from './components/monitoramento/StatusSaudePage';
 import CadastrosVeiculosPage from './components/monitoramento/CadastrosVeiculosPage';
 import DispVeiculosPage from './components/monitoramento/DispVeiculosPage';
 import ManutencaoPage from './components/monitoramento/ManutencaoPage';
+import HistoricodeConducaoPage from './components/torredecontrole/HistoricodeConducaoPage';
+import CadastrodeUsuariosPage from './components/torredecontrole/CadastrodeUsuariosPage';
+import ConsultadeEstoquePage from './components/torredecontrole/ConsultadeEstoquePage';
+import ControledeRotasPage from './components/torredecontrole/ControledeRotasPage';
 
 const App = () => {
     return (
@@ -30,6 +34,10 @@ const App = () => {
                     <Route path="/disponibilidadeveiculos" element={<DispVeiculosPage />} />
                     <Route path="/manutencao" element={<ManutencaoPage />} />
                     <Route path="/torre-de-controle" element={<TorredeControlePage />} />
+                    <Route path="/historicodeconducao" element={<HistoricodeConducaoPage />} />
+                    <Route path="/cadastrodeusuarios" element={<CadastrodeUsuariosPage />} />
+                    <Route path="/consultadeestoque" element={<ConsultadeEstoquePage />} />
+                    <Route path="/controlederotas" element={<ControledeRotasPage />} />
                 </Routes>
             </div>
         </Router>
