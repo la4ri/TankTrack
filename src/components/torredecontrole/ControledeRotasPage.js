@@ -5,7 +5,7 @@ import Header from '../Header.js';
 import LateralMenuTorre from '../LateralMenuTorre.js';
 import '../../style/menu.css';
 
-const TorredeControlePage = () => {
+const ControledeRotasPage = () => {
     return (
         <div>
             <div className="containerTorre">
@@ -22,4 +22,4 @@ const TorredeControlePage = () => {
     );
 };
 
-export default TorredeControlePage;
+export default ControledeRotasPage;

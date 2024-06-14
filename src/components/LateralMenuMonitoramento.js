@@ -5,7 +5,7 @@ import homeIcon from '../img/home.svg';
 import '../style/transportadora.css';
 
 
-const LateralMenu = () => {
+const LateralMenuMonitoramento = () => {
     const [mostrarPaginas, setMostrarPaginas] = useState(true);
     const [paginaSelecionada, setPaginaSelecionada] = useState('/transportadora');
 
@@ -54,4 +54,4 @@ const LateralMenu = () => {
     );
 };
 
-export default LateralMenu;
+export default LateralMenuMonitoramento;
