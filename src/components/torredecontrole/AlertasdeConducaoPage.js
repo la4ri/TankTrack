@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../style/menu.css';
 
-const TorredeControlePage = () => {
+const AlertasdeConducaoPage = () => {
     return (
         <div>
             <div className="containerTorre">
@@ -14,4 +14,4 @@ const TorredeControlePage = () => {
     );
 };
 
-export default TorredeControlePage;
+export default AlertasdeConducaoPage;

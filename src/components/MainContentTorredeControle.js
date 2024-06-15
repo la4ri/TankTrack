@@ -8,7 +8,7 @@ import HistoricodeConducaoPage from '../components/torredecontrole/HistoricodeCo
 import CadastrodeUsuariosPage from '../components/torredecontrole/CadastrodeUsuariosPage';
 import ConsultadeEstoquePage from '../components/torredecontrole/ConsultadeEstoquePage';
 import ControledeRotasPage from '../components/torredecontrole/ControledeRotasPage';
-import AlertasdeConducao from './torredecontrole/AlertasdeConducao.js';
+import AlertasdeConducaoPage from './torredecontrole/AlertasdeConducaoPage.js';
 import '../style/container.css';
 
 const MainContentTorredeControle = () => {
@@ -29,7 +29,7 @@ const MainContentTorredeControle = () => {
                     </div>
                     <div className="main-section">
                         <Routes>
-                            <Route path="/" element={<AlertasdeConducao />} />
+                            <Route path="/" element={<AlertasdeConducaoPage />} />
                             <Route path="/torre-de-controle/*" element={<MainContentTorredeControle />} />
                             <Route path="/historicodeconducao" element={<HistoricodeConducaoPage />} />
                             <Route path="/cadastrodeusuarios" element={<CadastrodeUsuariosPage />} />
