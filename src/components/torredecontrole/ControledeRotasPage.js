@@ -1,11 +1,10 @@
-// TransportadoraPage.js
 import React from 'react';
 import '../../style/menu.css';
 
-const GestaodeFrotaPage = () => {
+const ControledeRotasPage = () => {
     return (
         <div>
-            <div className="containerTransportadora">
+            <div className="containerTorre">
                 <div className="content">
                     <div className="main-section">
                     </div>
@@ -15,4 +14,4 @@ const GestaodeFrotaPage = () => {
     );
 };
 
-export default GestaodeFrotaPage;
+export default ControledeRotasPage;

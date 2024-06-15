@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import homeIcon from '../img/home.svg';
-import '../style/transportadora.css';
+import '../style/container.css';
 
 
-const LateralMenu = () => {
+const LateralMenuMonitoramento = () => {
     const [mostrarPaginas, setMostrarPaginas] = useState(true);
     const [paginaSelecionada, setPaginaSelecionada] = useState('/transportadora');
 
@@ -38,20 +38,20 @@ const LateralMenu = () => {
                 <button className="produtos-button" onClick={togglePaginas}>Motoristas</button>
                 <ul className={`submenu ${mostrarPaginas ? "mostrar" : ""}`}>
                     <li><Link to="/monitoramento" className={paginaSelecionada === '/monitoramento' ? 'active' : ''} onClick={() => handleSelecionarPagina('/monitoramento')}>Cadastro de Motorista</Link></li>
-                    <li><Link to="/disponibilidademotoristas" className={paginaSelecionada === '/disponibilidademotoristas' ? 'active' : ''} onClick={() => handleSelecionarPagina('/disponibilidademotoristas')}>Disponibilidade</Link></li>
-                    <li><Link to="/statussaude" className={paginaSelecionada === '/statussaude' ? 'active' : ''} onClick={() => handleSelecionarPagina('/statussaude')}>Status de Saúde</Link></li>
+                    <li><Link to="/monitoramento/disponibilidademotoristas" className={paginaSelecionada === '/monitoramento/disponibilidademotoristas' ? 'active' : ''} onClick={() => handleSelecionarPagina('/monitoramento/disponibilidademotoristas')}>Disponibilidade</Link></li>
+                    <li><Link to="/monitoramento/statussaude" className={paginaSelecionada === '/monitoramento/statussaude' ? 'active' : ''} onClick={() => handleSelecionarPagina('/monitoramento/statussaude')}>Status de Saúde</Link></li>
                 </ul>
             </div>
             <div className="botao-container">
                 <button className="produtos-button" onClick={togglePaginas}>Veículos</button>
                 <ul className={`submenu ${mostrarPaginas ? "mostrar" : ""}`}>
-                    <li><Link to="/cadastrosveiculos" className={paginaSelecionada === '/cadastrosveiculos' ? 'active' : ''} onClick={() => handleSelecionarPagina('/cadastrosveiculos')}>Cadastro de Veículos</Link></li>
-                    <li><Link to="/disponibilidadeveiculos" className={paginaSelecionada === '/disponibilidadeveiculos' ? 'active' : ''} onClick={() => handleSelecionarPagina('/disponibilidadeveiculos')}>Disponibilidade</Link></li>
-                    <li><Link to="/manutencao" className={paginaSelecionada === '/manutencao' ? 'active' : ''} onClick={() => handleSelecionarPagina('/manutencao')}>Status de Veículos</Link></li>
+                    <li><Link to="/monitoramento/cadastrosveiculos" className={paginaSelecionada === '/monitoramento/cadastrosveiculos' ? 'active' : ''} onClick={() => handleSelecionarPagina('/monitoramento/cadastrosveiculos')}>Cadastro de Veículos</Link></li>
+                    <li><Link to="/monitoramento/disponibilidadeveiculos" className={paginaSelecionada === '/monitoramento/disponibilidadeveiculos' ? 'active' : ''} onClick={() => handleSelecionarPagina('/monitoramento/disponibilidadeveiculos')}>Disponibilidade</Link></li>
+                    <li><Link to="/monitoramento/statusSaude" className={paginaSelecionada === '/monitoramento/statusSaude' ? 'active' : ''} onClick={() => handleSelecionarPagina('/monitoramento/statusSaude')}>Status de Veículos</Link></li>
                 </ul>
             </div>
         </aside>
     );
 };
 
-export default LateralMenu;
+export default LateralMenuMonitoramento;

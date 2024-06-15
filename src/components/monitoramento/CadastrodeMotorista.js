@@ -2,12 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, TextField, Button } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon, History as HistoryIcon } from '@mui/icons-material';
 import axios from 'axios';
-import MotoristaModal from './MotoristaModal';
+import MotoristaModal from './MotoristaModal.js';
 import Papa from 'papaparse';
-import TopBar from '../TopBar.js';
-import SideBar from '../SideBar.js';
-import Header from '../Header.js';
-import LateralMenuMonitoramento from '../LateralMenuMonitoramento.js';
 import '../../style/menu.css';
 
 const MonitoramentoPage = () => {
@@ -72,11 +68,7 @@ const MonitoramentoPage = () => {
     return (
         <div>
             <div className="containerMonitoramento">
-                <TopBar />
-                <SideBar />
-                <Header />
                 <div className="content">
-                    <LateralMenuMonitoramento />
                     <div className="main-section">
                         <Container>
                             <Typography variant="h4" gutterBottom>

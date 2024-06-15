@@ -1,15 +1,10 @@
 import React from 'react';
-import editIcon from '../img/edit.svg';
-import '../style/transportadora.css';
+import editIcon from '../../img/edit.svg';
+import '../../style/container.css';
 
-const MainContent = () => {
+const TransportadoraPage = () => {
     return (
         <div className="main">
-            <main>
-                <h1>Portal Transportadora</h1>
-                <div className="line"></div>
-                <div className="line"></div>
-            </main>
             <div className="main-content">
                 <h1>Recebimento de Produtos</h1>
                 <div className="filters">
@@ -48,9 +43,9 @@ const MainContent = () => {
                         ))}
                     </tbody>
                 </table>
-            </div >
+            </div>
         </div>
     );
 };
 
-export default MainContent;
+export default TransportadoraPage;
