@@ -4,7 +4,7 @@ import TopBar from './TopBar.js';
 import SideBar from './SideBar.js';
 import Header from './Header.js';
 import LateralMenuMonitoramento from './LateralMenuMonitoramento.js';
-import CadastrodeMotorista from './monitoramento/CadastrodeMotorista.js';
+import CadastrodeMotoristaPage from './monitoramento/CadastrodeMotoristaPage.js';
 import DispMotoristasPage from '../components/monitoramento/DispMotoristasPage';
 import StatusSaudePage from '../components/monitoramento/StatusSaudePage';
 import CadastrosVeiculosPage from '../components/monitoramento/CadastrosVeiculosPage';
@@ -31,7 +31,7 @@ const MainContentMonitoramento = () => {
                     </div>
                     <div className="main-section">
                         <Routes>
-                            <Route path="/" element={<CadastrodeMotorista />} />
+                            <Route path="/" element={<CadastrodeMotoristaPage />} />
                             <Route path="/disponibilidademotoristas" element={<DispMotoristasPage />} />
                             <Route path="/statussaude" element={<StatusSaudePage />} />
                             <Route path="/cadastrosveiculos" element={<CadastrosVeiculosPage />} />

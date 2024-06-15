@@ -5,7 +5,7 @@ import SideBar from './SideBar.js';
 import Header from './Header.js';
 import LateralMenuTransportadora from './LateralMenuTransportadora.js';
 import GestaodeFrotaPage from '../components/transportadora/GestaodeFrotaPage';
-import RecebimentodeProdutos from './transportadora/RecebimentodeProdutos.js';
+import RecebimentodeProdutosPage from './transportadora/RecebimentodeProdutosPage.js';
 import FrotaemOperacaoPage from '../components/transportadora/FrotaemOperacaoPage';
 import '../style/container.css';
 
@@ -27,7 +27,7 @@ const MainContentTransportadora = () => {
                     </div>
                     <div className="main-section">
                         <Routes>
-                            <Route path="/" element={<RecebimentodeProdutos />} />
+                            <Route path="/" element={<RecebimentodeProdutosPage />} />
                             <Route path="/gestao" element={<GestaodeFrotaPage />} />
                             <Route path="/operacao" element={<FrotaemOperacaoPage />} />
                         </Routes>

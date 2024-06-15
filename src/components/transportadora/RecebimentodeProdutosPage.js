@@ -2,7 +2,7 @@ import React from 'react';
 import editIcon from '../../img/edit.svg';
 import '../../style/container.css';
 
-const TransportadoraPage = () => {
+const RecebimentodeProdutosPage = () => {
     return (
         <div className="main">
             <div className="main-content">
@@ -48,4 +48,4 @@ const TransportadoraPage = () => {
     );
 };
 
-export default TransportadoraPage;
+export default RecebimentodeProdutosPage;

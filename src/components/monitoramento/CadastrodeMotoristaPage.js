@@ -6,7 +6,7 @@ import MotoristaModal from './MotoristaModal.js';
 import Papa from 'papaparse';
 import '../../style/menu.css';
 
-const MonitoramentoPage = () => {
+const CadastrodeMotoristaPage = () => {
     const [motoristas, setMotoristas] = useState([]);
     const [search, setSearch] = useState('');
     const [open, setOpen] = useState(false);
@@ -145,4 +145,4 @@ const MonitoramentoPage = () => {
     );
 };
 
-export default MonitoramentoPage;
+export default CadastrodeMotoristaPage;
