@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, TextField, Button } from '@mui/material';
-import { Edit as EditIcon, Delete as DeleteIcon, History as HistoryIcon } from '@mui/icons-material';
 import axios from 'axios';
 import MotoristaModal from './MotoristaModal.js';
+import editIcon from '../../img/edit.svg';
+import deleteIcon from '../../img/delete.svg';
+import addIcon from '../../img/add.svg';
+import exportIcon from '../../img/export.svg';
 import Papa from 'papaparse';
 import '../../style/menu.css';
+import '../../style/container.css';
 
 const CadastrodeMotoristaPage = () => {
     const [motoristas, setMotoristas] = useState([]);
@@ -67,79 +70,73 @@ const CadastrodeMotoristaPage = () => {
 
     return (
         <div>
-            <div className="containerMonitoramento">
-                <div className="content">
-                    <div className="main-section">
-                        <Container>
-                            <Typography variant="h4" gutterBottom>
-                                Cadastro de Motoristas
-                            </Typography>
-                            <Button variant="contained" color="primary" onClick={() => handleOpen()} sx={{ marginBottom: 2 }}>
-                                + Adicionar novo motorista
-                            </Button>
-                            <Button variant="contained" color="secondary" onClick={handleExportCSV} sx={{ marginBottom: 2, marginLeft: 2 }}>
-                                Exportar tabela
-                            </Button>
-                            <TextField
-                                label="Buscar por nome"
-                                variant="outlined"
-                                fullWidth
-                                value={search}
-                                onChange={handleSearchChange}
-                                onKeyPress={(ev) => {
-                                    if (ev.key === 'Enter') {
-                                        handleSearch();
-                                        ev.preventDefault();
-                                    }
-                                }}
-                                sx={{ marginBottom: 2 }}
-                            />
-                            <TableContainer component={Paper}>
-                                <Table>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>ID Motorista</TableCell>
-                                            <TableCell>Nome Completo</TableCell>
-                                            <TableCell>CNH</TableCell>
-                                            <TableCell>Validade CNH</TableCell>
-                                            <TableCell>Status de Saúde</TableCell>
-                                            <TableCell>Editar/Histórico</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {motoristas.map((motorista) => (
-                                            <TableRow key={motorista.id_motorista}>
-                                                <TableCell>{motorista.id_motorista}</TableCell>
-                                                <TableCell>{motorista.nome_motorista}</TableCell>
-                                                <TableCell>{motorista.cnh_motorista}</TableCell>
-                                                <TableCell>{new Date(motorista.validade_cnh).toLocaleDateString()}</TableCell>
-                                                <TableCell>{motorista.status_saude_motorista}</TableCell>
-                                                <TableCell>
-                                                    <IconButton color="primary" onClick={() => handleOpen(motorista)}>
-                                                        <EditIcon />
-                                                    </IconButton>
-                                                    <IconButton color="secondary" onClick={() => handleDelete(motorista.id_motorista)}>
-                                                        <DeleteIcon />
-                                                    </IconButton>
-                                                    <IconButton color="default">
-                                                        <HistoryIcon />
-                                                    </IconButton>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                            <MotoristaModal
-                                open={open}
-                                handleClose={handleClose}
-                                motorista={selectedMotorista}
-                                isEditing={isEditing}
-                                fetchMotoristas={fetchMotoristas}
-                            />
-                        </Container>
+            <div className="main-content">
+                <h1>Cadastro de Motoristas</h1>
+                <div className="containerButtons">
+                    <div className="action-buttons">
+                        <button className="export-button" onClick={handleExportCSV}>
+                            <img src={exportIcon} alt="Exportar" />
+                            Exportar tabela
+                        </button>
+                        <button className="add-button" onClick={() => handleOpen()}>
+                            <img src={addIcon} alt="Adicionar" />
+                            Adicionar novo motorista
+                        </button>
                     </div>
+                    {/* <input
+                        type="text"
+                        placeholder="Buscar por nome"
+                        value={search}
+                        onChange={handleSearchChange}
+                        onKeyPress={(ev) => {
+                            if (ev.key === 'Enter') {
+                                handleSearch();
+                                ev.preventDefault();
+                            }
+                        }}
+                        className="filter-input"
+                    /> */}
                 </div>
+                <div className="table-container">
+                    <table className="product-table">
+                        <thead>
+                            <tr>
+                                <th>ID Motorista</th>
+                                <th>Nome Completo</th>
+                                <th>CNH</th>
+                                <th>Validade CNH</th>
+                                <th>Status de Saúde</th>
+                                <th>Editar/Deletar Motorista</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {motoristas.map((motorista) => (
+                                <tr key={motorista.id_motorista}>
+                                    <td>{motorista.id_motorista}</td>
+                                    <td>{motorista.nome_motorista}</td>
+                                    <td>{motorista.cnh_motorista}</td>
+                                    <td>{new Date(motorista.validade_cnh).toLocaleDateString()}</td>
+                                    <td>{motorista.status_saude_motorista}</td>
+                                    <td>
+                                        <button className="edit-button" onClick={() => handleOpen(motorista)}>
+                                            <img src={editIcon} alt="Editar" />
+                                        </button>
+                                        <button className="delete-button" onClick={() => handleDelete(motorista.id_motorista)}>
+                                            <img src={deleteIcon} alt="Deletar" />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <MotoristaModal
+                    open={open}
+                    handleClose={handleClose}
+                    motorista={selectedMotorista}
+                    isEditing={isEditing}
+                    fetchMotoristas={fetchMotoristas}
+                />
             </div>
         </div>
     );

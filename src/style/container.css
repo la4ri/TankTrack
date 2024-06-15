@@ -204,8 +204,8 @@
 }
 
 .edit-button img {
-    width: 16px;
-    height: 16px;
+    width: 23px;
+        height: 23px;
 }
 
 .action-buttons {
@@ -260,4 +260,15 @@
     width: 16px;
     height: 16px;
     margin-right: 5px;
+}
+.delete-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: 10%;
+}
+
+.delete-button img {
+    width: 23px;
+    height: 23px;
 }
