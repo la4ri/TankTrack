@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, IconButton, TextField } from '@mui/material';
-import { Edit as EditIcon, History as HistoryIcon } from '@mui/icons-material';
 import axios from 'axios';
 import VehicleModal from './VehicleModal';
-import TopBar from '../TopBar.js';
-import SideBar from '../SideBar.js';
-import Header from '../Header.js';
-import LateralMenuMonitoramento from '../LateralMenuMonitoramento.js';
+import editIcon from '../../img/edit.svg';
+import exportIcon from '../../img/export.svg';
+import addIcon from '../../img/add.svg';
+import '../../style/container.css';
+import '../../style/menu.css';
 
 const CadastrosVeiculosPage = () => {
     const [veiculos, setVeiculos] = useState([]);
@@ -83,77 +82,70 @@ const CadastrosVeiculosPage = () => {
 
     return (
         <div>
-            <div className="containerMonitoramento">
-                <TopBar />
-                <SideBar />
-                <Header />
-                <div className="content">
-                    <LateralMenuMonitoramento />
-                    <div className="main-section">
-                        <Container>
-                            <Typography variant="h4" gutterBottom>
-                                Cadastro de Veículos
-                            </Typography>
-                            <Button variant="contained" color="primary" onClick={handleAddVehicle}>
-                                Adicionar novo veículo
-                            </Button>
-                            <Button variant="contained" color="secondary" onClick={handleExport} style={{ marginLeft: '10px' }}>
-                                Exportar tabela
-                            </Button>
-                            <form onSubmit={handleSearchSubmit} style={{ marginTop: '20px' }}>
-                                <TextField
-                                    label="Buscar por Placa"
-                                    variant="outlined"
-                                    value={searchQuery}
-                                    onChange={handleSearchChange}
-                                    fullWidth
-                                    margin="normal"
-                                />
-                            </form>
-                            {errorMessage && (
-                                <Typography variant="h6" color="error" style={{ marginTop: '20px' }}>
-                                    {errorMessage}
-                                </Typography>
-                            )}
-                            <TableContainer component={Paper} style={{ marginTop: '20px' }}>
-                                <Table>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>ID Veículo</TableCell>
-                                            <TableCell>Marca Veículo</TableCell>
-                                            <TableCell>Placa</TableCell>
-                                            <TableCell>Filial</TableCell>
-                                            <TableCell>Status</TableCell>
-                                            <TableCell>Editar/Atualizar</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {veiculos.map((veiculo) => (
-                                            <TableRow key={veiculo.id_veiculo}>
-                                                <TableCell>{veiculo.id_veiculo}</TableCell>
-                                                <TableCell>{veiculo.modelo_veiculo}</TableCell>
-                                                <TableCell>{veiculo.placa_veiculo}</TableCell>
-                                                <TableCell>FILIAL - GOIÂNIA</TableCell> {/* Ajustar conforme necessário */}
-                                                <TableCell>{veiculo.status_veiculo}</TableCell>
-                                                <TableCell>
-                                                    <IconButton color="primary" onClick={() => handleEditVehicle(veiculo)}><EditIcon /></IconButton>
-                                                    <IconButton color="secondary"><HistoryIcon /></IconButton>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
-                            <VehicleModal 
-                                open={openModal} 
-                                handleClose={handleCloseModal} 
-                                vehicle={currentVehicle} 
-                                isEditing={isEditing} 
-                                fetchVehicles={fetchVehicles} 
-                            />
-                        </Container>
+            <div className="main-content">
+                <h1>Cadastro de Veículos</h1>
+                <div className="containerButtons">
+                    <div className="action-buttons">
+                        <button className="export-button" onClick={handleExport}>
+                            <img src={exportIcon} alt="Exportar" />
+                            Exportar tabela
+                        </button>
+                        <button className="add-button" onClick={handleAddVehicle}>
+                            <img src={addIcon} alt="Adicionar" />
+                            Adicionar novo veículo
+                        </button>
                     </div>
+                    {/* <form onSubmit={handleSearchSubmit} className="filter-group">
+                        <input
+                            type="text"
+                            placeholder="Buscar por Placa"
+                            value={searchQuery}
+                            onChange={handleSearchChange}
+                            className="filter-input"
+                        />
+                        <button type="submit" className="filter-button">Buscar</button>
+                    </form> */}
                 </div>
+                {errorMessage && (
+                    <div className="error-message">
+                        {errorMessage}
+                    </div>
+                )}
+                <table className="product-table">
+                    <thead>
+                        <tr>
+                            <th>ID Veículo</th>
+                            <th>Marca Veículo</th>
+                            <th>Placa</th>
+                            <th>Filial</th>
+                            <th>Status</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {veiculos.map((veiculo) => (
+                            <tr key={veiculo.id_veiculo}>
+                                <td>{veiculo.id_veiculo}</td>
+                                <td>{veiculo.modelo_veiculo}</td>
+                                <td>{veiculo.placa_veiculo}</td>
+                                <td>FILIAL - GOIÂNIA</td> {/* Ajustar conforme necessário */}
+                                <td>{veiculo.status_veiculo}</td>
+                                <td>
+                                    <button className="edit-button" onClick={() => handleEditVehicle(veiculo)}>
+                                        <img src={editIcon} alt="Editar" />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <VehicleModal
+                    open={openModal}
+                    handleClose={handleCloseModal}
+                    vehicle={currentVehicle}
+                    isEditing={isEditing}
+                    fetchVehicles={fetchVehicles}
+                />
             </div>
         </div>
     );

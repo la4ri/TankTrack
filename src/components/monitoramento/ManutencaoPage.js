@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import axios from 'axios';
-import TopBar from '../TopBar.js';
-import SideBar from '../SideBar.js';
-import Header from '../Header.js';
-import LateralMenuMonitoramento from '../LateralMenuMonitoramento.js';
 
 const ManutencaoPage = () => {
     const [veiculos, setVeiculos] = useState([]);
@@ -22,11 +18,7 @@ const ManutencaoPage = () => {
     return (
         <div>
             <div className="containerMonitoramento">
-                <TopBar />
-                <SideBar />
-                <Header />
                 <div className="content">
-                    <LateralMenuMonitoramento />
                     <div className="main-section">
                         <Container>
                             <Typography variant="h4" gutterBottom>
