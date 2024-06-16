@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import homeIcon from '../img/home.svg';
-import '../style/transportadora.css';
+import '../style/container.css';
 
 
 const LateralMenuTorre = () => {
@@ -38,10 +38,10 @@ const LateralMenuTorre = () => {
                 <button className="produtos-button" onClick={togglePaginas}>Logística</button>
                 <ul className={`submenu ${mostrarPaginas ? "mostrar" : ""}`}>
                     <li><Link to="/torre-de-controle" className={paginaSelecionada === '/torre-de-controle' ? 'active' : ''} onClick={() => handleSelecionarPagina('/torre-de-controle')}>Alertas de Condução</Link></li>
-                    <li><Link to="/historicodeconducao" className={paginaSelecionada === '/historicodeconducao' ? 'active' : ''} onClick={() => handleSelecionarPagina('/historicodeconducao')}>Histórico de Condução</Link></li>
-                    <li><Link to="/cadastrodeusuarios" className={paginaSelecionada === '/cadastrodeusuarios' ? 'active' : ''} onClick={() => handleSelecionarPagina('/cadastrodeusuarios')}>Cadastro de Usuários</Link></li>
-                    <li><Link to="/consultadeestoque" className={paginaSelecionada === '/consultadeestoque' ? 'active' : ''} onClick={() => handleSelecionarPagina('/consultadeestoque')}>Consulta de Estoque</Link></li>
-                    <li><Link to="/controlederotas" className={paginaSelecionada === '/controlederotas' ? 'active' : ''} onClick={() => handleSelecionarPagina('/controlederotas')}>Controle de Rotas</Link></li>
+                    <li><Link to="/torre-de-controle/historicodeconducao" className={paginaSelecionada === '/torre-de-controle/historicodeconducao' ? 'active' : ''} onClick={() => handleSelecionarPagina('/torre-de-controle/historicodeconducao')}>Histórico de Condução</Link></li>
+                    <li><Link to="/torre-de-controle/cadastrodeusuarios" className={paginaSelecionada === '/torre-de-controle/cadastrodeusuarios' ? 'active' : ''} onClick={() => handleSelecionarPagina('/torre-de-controle/cadastrodeusuarios')}>Cadastro de Usuários</Link></li>
+                    <li><Link to="/torre-de-controle/consultadeestoque" className={paginaSelecionada === '/torre-de-controle/consultadeestoque' ? 'active' : ''} onClick={() => handleSelecionarPagina('/torre-de-controle/consultadeestoque')}>Consulta de Estoque</Link></li>
+                    <li><Link to="/torre-de-controle/controlederotas" className={paginaSelecionada === '/torre-de-controle/controlederotas' ? 'active' : ''} onClick={() => handleSelecionarPagina('/torre-de-controle/controlederotas')}>Controle de Rotas</Link></li>
                 </ul>
             </div>
         </aside>

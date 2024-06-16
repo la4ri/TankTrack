@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import homeIcon from '../img/home.svg';
-import '../style/transportadora.css';
+import '../style/container.css';
 
 
-const LateralMenu = () => {
+const LateralMenuTransportadora = () => {
     const [mostrarPaginas, setMostrarPaginas] = useState(true);
     const [paginaSelecionada, setPaginaSelecionada] = useState('/transportadora');
 
@@ -38,12 +38,12 @@ const LateralMenu = () => {
                 <button className="produtos-button" onClick={togglePaginas}>Produtos</button>
                 <ul className={`submenu ${mostrarPaginas ? "mostrar" : ""}`}>
                     <li><Link to="/transportadora" className={paginaSelecionada === '/transportadora' ? 'active' : ''} onClick={() => handleSelecionarPagina('/transportadora')}>Recebimento de Produtos</Link></li>
-                    <li><Link to="/gestao" className={paginaSelecionada === '/gestao' ? 'active' : ''} onClick={() => handleSelecionarPagina('/gestao')}>Gestão de Frota</Link></li>
-                    <li><Link to="/operacao" className={paginaSelecionada === '/operacao' ? 'active' : ''} onClick={() => handleSelecionarPagina('/operacao')}>Frota em Operação</Link></li>
+                    <li><Link to="/transportadora/gestao" className={paginaSelecionada === '/transportadora/gestao' ? 'active' : ''} onClick={() => handleSelecionarPagina('/transportadora/gestao')}>Gestão de Frota</Link></li>
+                    <li><Link to="/transportadora/operacao" className={paginaSelecionada === '/transportadora/operacao' ? 'active' : ''} onClick={() => handleSelecionarPagina('/transportadora/operacao')}>Frota em Operação</Link></li>
                 </ul>
             </div>
         </aside>
     );
 };
 
-export default LateralMenu;
+export default LateralMenuTransportadora;

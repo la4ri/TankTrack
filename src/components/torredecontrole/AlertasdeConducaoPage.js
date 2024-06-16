@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../style/menu.css';
 
-const HistoricodeConducaoPage = () => {
+const AlertasdeConducaoPage = () => {
     return (
         <div>
             <div className="containerTorre">
@@ -14,4 +14,4 @@ const HistoricodeConducaoPage = () => {
     );
 };
 
-export default HistoricodeConducaoPage;
+export default AlertasdeConducaoPage;
