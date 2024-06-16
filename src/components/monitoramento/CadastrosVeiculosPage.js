@@ -9,10 +9,17 @@ import '../../style/menu.css';
 
 const CadastrosVeiculosPage = () => {
     const [veiculos, setVeiculos] = useState([]);
+    const [filteredVeiculos, setFilteredVeiculos] = useState([]);
+    const [search, setSearch] = useState({
+        id: '',
+        marca: '',
+        placa: '',
+        filial: '',
+        status: ''
+    });
     const [openModal, setOpenModal] = useState(false);
     const [currentVehicle, setCurrentVehicle] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
@@ -21,8 +28,52 @@ const CadastrosVeiculosPage = () => {
 
     const fetchVehicles = () => {
         axios.get('https://node-deploy-api-d20r.onrender.com/veiculos')
-            .then(response => setVeiculos(response.data))
+            .then(response => {
+                setVeiculos(response.data);
+                setFilteredVeiculos(response.data); // Initialize filteredVeiculos
+            })
             .catch(error => console.error('Erro ao buscar veículos:', error));
+    };
+
+    const handleSearch = (event) => {
+        const { name, value } = event.target;
+        setSearch(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    useEffect(() => {
+        let filtered = veiculos;
+
+        if (search.id) {
+            filtered = filtered.filter(veiculo => veiculo.id_veiculo.toString().includes(search.id));
+        }
+        if (search.marca) {
+            filtered = filtered.filter(veiculo => veiculo.modelo_veiculo.toLowerCase().includes(search.marca.toLowerCase()));
+        }
+        if (search.placa) {
+            filtered = filtered.filter(veiculo => veiculo.placa_veiculo.toLowerCase().includes(search.placa.toLowerCase()));
+        }
+        if (search.filial) {
+            filtered = filtered.filter(veiculo => "FILIAL - GOIÂNIA".toLowerCase().includes(search.filial.toLowerCase()));
+        }
+        if (search.status) {
+            filtered = filtered.filter(veiculo => veiculo.status_veiculo.toLowerCase().includes(search.status.toLowerCase()));
+        }
+
+        setFilteredVeiculos(filtered);
+    }, [search, veiculos]);
+
+    const handleExport = () => {
+        const csvContent = "data:text/csv;charset=utf-8,"
+            + filteredVeiculos.map(v => `${v.id_veiculo},${v.modelo_veiculo},${v.placa_veiculo},FILIAL - GOIÂNIA,${v.status_veiculo}`).join("\n");
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "veiculos.csv");
+        document.body.appendChild(link); // Required for FF
+        link.click();
     };
 
     const handleAddVehicle = () => {
@@ -41,43 +92,14 @@ const CadastrosVeiculosPage = () => {
         setOpenModal(false);
     };
 
-    const handleExport = () => {
-        const csvContent = "data:text/csv;charset=utf-8,"
-            + veiculos.map(v => `${v.id_veiculo},${v.modelo_veiculo},${v.placa_veiculo},${v.status_veiculo}`).join("\n");
-        const encodedUri = encodeURI(csvContent);
-        const link = document.createElement("a");
-        link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "veiculos.csv");
-        document.body.appendChild(link); // Required for FF
-        link.click();
-    };
-
-    const handleSearchChange = (e) => {
-        setSearchQuery(e.target.value);
-    };
-
-    const handleSearchSubmit = (e) => {
-        e.preventDefault();
-        setErrorMessage(''); // Reset the error message
-
-        if (searchQuery.trim() !== '') {
-            axios.get(`https://node-deploy-api-d20r.onrender.com/veiculos/placa/${searchQuery.trim()}`)
-                .then(response => {
-                    if (response.data) {
-                        setVeiculos([response.data]);
-                    } else {
-                        setErrorMessage('Veículo não encontrado');
-                        setVeiculos([]);
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar veículo:', error);
-                    setErrorMessage('Veículo não encontrado');
-                    setVeiculos([]);
-                });
-        } else {
-            fetchVehicles();
-        }
+    const handleClearFilters = () => {
+        setSearch({
+            id: '',
+            marca: '',
+            placa: '',
+            filial: '',
+            status: ''
+        });
     };
 
     return (
@@ -95,50 +117,103 @@ const CadastrosVeiculosPage = () => {
                             Adicionar novo veículo
                         </button>
                     </div>
-                    {/* <form onSubmit={handleSearchSubmit} className="filter-group">
-                        <input
-                            type="text"
-                            placeholder="Buscar por Placa"
-                            value={searchQuery}
-                            onChange={handleSearchChange}
-                            className="filter-input"
-                        />
-                        <button type="submit" className="filter-button">Buscar</button>
-                    </form> */}
+                    <div className='container-clear'>
+                        <button className="clear-button" onClick={handleClearFilters}>
+                            Limpar Filtros
+                        </button>
+                    </div>
                 </div>
                 {errorMessage && (
                     <div className="error-message">
                         {errorMessage}
                     </div>
                 )}
-                <table className="product-table">
-                    <thead>
-                        <tr>
-                            <th>ID Veículo</th>
-                            <th>Marca Veículo</th>
-                            <th>Placa</th>
-                            <th>Filial</th>
-                            <th>Status</th>
-                            <th>Editar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {veiculos.map((veiculo) => (
-                            <tr key={veiculo.id_veiculo}>
-                                <td>{veiculo.id_veiculo}</td>
-                                <td>{veiculo.modelo_veiculo}</td>
-                                <td>{veiculo.placa_veiculo}</td>
-                                <td>FILIAL - GOIÂNIA</td> {/* Ajustar conforme necessário */}
-                                <td>{veiculo.status_veiculo}</td>
-                                <td>
-                                    <button className="edit-button" onClick={() => handleEditVehicle(veiculo)}>
-                                        <img src={editIcon} alt="Editar" />
-                                    </button>
-                                </td>
+                <div className="table-container">
+                    <table className="product-table">
+                        <thead>
+                            <tr>
+                                <th>ID Veículo
+                                    <div className="search-container">
+                                        <input
+                                            type="text"
+                                            name='id'
+                                            value={search.id}
+                                            onChange={handleSearch}
+                                            placeholder="Buscar por ID"
+                                        />
+                                    </div>
+                                </th>
+                                <th>Marca Veículo
+                                    <div className="search-container">
+                                        <input
+                                            type="text"
+                                            name='marca'
+                                            value={search.marca}
+                                            onChange={handleSearch}
+                                            placeholder="Buscar por Marca"
+                                        />
+                                    </div>
+                                </th>
+                                <th>Placa
+                                    <div className="search-container">
+                                        <input
+                                            type="text"
+                                            name='placa'
+                                            value={search.placa}
+                                            onChange={handleSearch}
+                                            placeholder="Buscar por Placa"
+                                        />
+                                    </div>
+                                </th>
+                                <th>Filial
+                                    <div className="search-container">
+                                        <input
+                                            type="text"
+                                            name='filial'
+                                            value={search.filial}
+                                            onChange={handleSearch}
+                                            placeholder="Buscar por Filial"
+                                        />
+                                    </div>
+                                </th>
+                                <th>Status
+                                    <div className="search-container">
+                                        <input
+                                            type="text"
+                                            name='status'
+                                            value={search.status}
+                                            onChange={handleSearch}
+                                            placeholder="Buscar por Status"
+                                        />
+                                    </div>
+                                </th>
+                                <th>Editar</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {filteredVeiculos.length > 0 ? (
+                                filteredVeiculos.map((veiculo) => (
+                                    <tr key={veiculo.id_veiculo}>
+                                        <td>{veiculo.id_veiculo}</td>
+                                        <td>{veiculo.modelo_veiculo}</td>
+                                        <td>{veiculo.placa_veiculo}</td>
+                                        <td>FILIAL - GOIÂNIA</td> {/* Ajustar conforme necessário */}
+                                        <td>{veiculo.status_veiculo}</td>
+                                        <td>
+                                            <button className="edit-button" onClick={() => handleEditVehicle(veiculo)}>
+                                                <img src={editIcon} alt="Editar" />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="6" style={{ textAlign: 'center' }}>não há dados para mostrar</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
                 <VehicleModal
                     open={openModal}
                     handleClose={handleCloseModal}

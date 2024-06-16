@@ -11,7 +11,14 @@ import '../../style/container.css';
 
 const CadastrodeMotoristaPage = () => {
     const [motoristas, setMotoristas] = useState([]);
-    const [search, setSearch] = useState('');
+    const [filteredMotoristas, setFilteredMotoristas] = useState([]);
+    const [search, setSearch] = useState({
+        id: '',
+        nome: '',
+        cnh: '',
+        validadeCnh: '',
+        statusSaude: ''
+    });
     const [open, setOpen] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [selectedMotorista, setSelectedMotorista] = useState(null);
@@ -22,22 +29,45 @@ const CadastrodeMotoristaPage = () => {
 
     const fetchMotoristas = () => {
         axios.get('https://node-deploy-api-d20r.onrender.com/motoristas')
-            .then(response => setMotoristas(response.data))
+            .then(response => {
+                setMotoristas(response.data);
+                setFilteredMotoristas(response.data); // Initialize filteredMotoristas
+            })
             .catch(error => console.error('Erro ao buscar motoristas:', error));
     };
 
-    const handleSearchChange = (e) => {
-        setSearch(e.target.value);
+    const handleSearch = (event) => {
+        const { name, value } = event.target;
+        setSearch(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
-    const handleSearch = () => {
-        axios.get(`https://node-deploy-api-d20r.onrender.com/motoristas/${search}`)
-            .then(response => setMotoristas(response.data))
-            .catch(error => console.error('Erro ao buscar motorista:', error));
-    };
+    useEffect(() => {
+        let filtered = motoristas;
+
+        if (search.id) {
+            filtered = filtered.filter(motorista => motorista.id_motorista.toString().includes(search.id));
+        }
+        if (search.nome) {
+            filtered = filtered.filter(motorista => motorista.nome_motorista.toLowerCase().includes(search.nome.toLowerCase()));
+        }
+        if (search.cnh) {
+            filtered = filtered.filter(motorista => motorista.cnh_motorista.toLowerCase().includes(search.cnh.toLowerCase()));
+        }
+        if (search.validadeCnh) {
+            filtered = filtered.filter(motorista => motorista.validade_cnh.includes(search.validadeCnh));
+        }
+        if (search.statusSaude) {
+            filtered = filtered.filter(motorista => motorista.status_saude_motorista.toLowerCase().includes(search.statusSaude.toLowerCase()));
+        }
+
+        setFilteredMotoristas(filtered);
+    }, [search, motoristas]);
 
     const handleExportCSV = () => {
-        const csv = Papa.unparse(motoristas);
+        const csv = Papa.unparse(filteredMotoristas);
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
@@ -68,6 +98,16 @@ const CadastrodeMotoristaPage = () => {
         }
     };
 
+    const handleClearFilters = () => {
+        setSearch({
+            id: '',
+            nome: '',
+            cnh: '',
+            validadeCnh: '',
+            statusSaude: ''
+        });
+    };
+
     return (
         <div>
             <div className="main-content">
@@ -83,50 +123,98 @@ const CadastrodeMotoristaPage = () => {
                             Adicionar novo motorista
                         </button>
                     </div>
-                    {/* <input
-                        type="text"
-                        placeholder="Buscar por nome"
-                        value={search}
-                        onChange={handleSearchChange}
-                        onKeyPress={(ev) => {
-                            if (ev.key === 'Enter') {
-                                handleSearch();
-                                ev.preventDefault();
-                            }
-                        }}
-                        className="filter-input"
-                    /> */}
+                    <div className='container-clear'>
+                        <button className="clear-button" onClick={handleClearFilters}>
+                            Limpar Filtros
+                        </button>
+                    </div>
                 </div>
                 <div className="table-container">
                     <table className="product-table">
                         <thead>
-                            <tr>
-                                <th>ID Motorista</th>
-                                <th>Nome Completo</th>
-                                <th>CNH</th>
-                                <th>Validade CNH</th>
-                                <th>Status de Saúde</th>
+                            <tr className='title-table'>
+                                <th>ID Motorista
+                                    <div className="search-container">
+                                        <input
+                                            type="text"
+                                            name='id'
+                                            value={search.id}
+                                            onChange={handleSearch}
+                                            placeholder="Buscar por ID"
+                                        />
+                                    </div>
+                                </th>
+                                <th>Nome Completo
+                                    <div className="search-container">
+                                        <input
+                                            type="text"
+                                            name='nome'
+                                            value={search.nome}
+                                            onChange={handleSearch}
+                                            placeholder="Buscar por Nome"
+                                        />
+                                    </div>
+                                </th>
+                                <th>CNH
+                                    <div className="search-container">
+                                        <input
+                                            type="text"
+                                            name='cnh'
+                                            value={search.cnh}
+                                            onChange={handleSearch}
+                                            placeholder="Buscar por CNH"
+                                        />
+                                    </div>
+                                </th>
+                                <th>Validade CNH
+                                    <div className="search-container">
+                                        <input
+                                            type="text"
+                                            name='validadeCnh'
+                                            value={search.validadeCnh}
+                                            onChange={handleSearch}
+                                            placeholder="Buscar por Validade"
+                                        />
+                                    </div>
+                                </th>
+                                <th>Status de Saúde
+                                    <div className="search-container">
+                                        <input
+                                            type="text"
+                                            name='statusSaude'
+                                            value={search.statusSaude}
+                                            onChange={handleSearch}
+                                            placeholder="Buscar por Status"
+                                        />
+                                    </div>
+                                </th>
                                 <th>Editar/Deletar Motorista</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {motoristas.map((motorista) => (
-                                <tr key={motorista.id_motorista}>
-                                    <td>{motorista.id_motorista}</td>
-                                    <td>{motorista.nome_motorista}</td>
-                                    <td>{motorista.cnh_motorista}</td>
-                                    <td>{new Date(motorista.validade_cnh).toLocaleDateString()}</td>
-                                    <td>{motorista.status_saude_motorista}</td>
-                                    <td>
-                                        <button className="edit-button" onClick={() => handleOpen(motorista)}>
-                                            <img src={editIcon} alt="Editar" />
-                                        </button>
-                                        <button className="delete-button" onClick={() => handleDelete(motorista.id_motorista)}>
-                                            <img src={deleteIcon} alt="Deletar" />
-                                        </button>
-                                    </td>
+                            {filteredMotoristas.length > 0 ? (
+                                filteredMotoristas.map((motorista) => (
+                                    <tr key={motorista.id_motorista}>
+                                        <td>{motorista.id_motorista}</td>
+                                        <td>{motorista.nome_motorista}</td>
+                                        <td>{motorista.cnh_motorista}</td>
+                                        <td>{motorista.validade_cnh ? new Date(motorista.validade_cnh).toLocaleDateString() : 'Data inválida'}</td>
+                                        <td>{motorista.status_saude_motorista}</td>
+                                        <td>
+                                            <button className="edit-button" onClick={() => handleOpen(motorista)}>
+                                                <img src={editIcon} alt="Editar" />
+                                            </button>
+                                            <button className="delete-button" onClick={() => handleDelete(motorista.id_motorista)}>
+                                                <img src={deleteIcon} alt="Deletar" />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="6" style={{ textAlign: 'center' }}>não há dados para mostrar</td>
                                 </tr>
-                            ))}
+                            )}
                         </tbody>
                     </table>
                 </div>

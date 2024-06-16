@@ -47,7 +47,7 @@ const LateralMenuMonitoramento = () => {
                 <ul className={`submenu ${mostrarPaginas ? "mostrar" : ""}`}>
                     <li><Link to="/monitoramento/cadastrosveiculos" className={paginaSelecionada === '/monitoramento/cadastrosveiculos' ? 'active' : ''} onClick={() => handleSelecionarPagina('/monitoramento/cadastrosveiculos')}>Cadastro de Veículos</Link></li>
                     <li><Link to="/monitoramento/disponibilidadeveiculos" className={paginaSelecionada === '/monitoramento/disponibilidadeveiculos' ? 'active' : ''} onClick={() => handleSelecionarPagina('/monitoramento/disponibilidadeveiculos')}>Disponibilidade</Link></li>
-                    <li><Link to="/monitoramento/statusSaude" className={paginaSelecionada === '/monitoramento/statusSaude' ? 'active' : ''} onClick={() => handleSelecionarPagina('/monitoramento/statusSaude')}>Status de Veículos</Link></li>
+                    <li><Link to="/monitoramento/manutencao" className={paginaSelecionada === '/monitoramento/manutencao' ? 'active' : ''} onClick={() => handleSelecionarPagina('/monitoramento/manutencao')}>Status de Veículos</Link></li>
                 </ul>
             </div>
         </aside>
