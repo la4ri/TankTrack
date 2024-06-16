@@ -143,7 +143,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .filter-group {
@@ -164,7 +164,7 @@
 }
 
 .filter-button {
-    padding: 10px 20px;
+    padding: 10px 15px;
     background-color: #800000;
     color: white;
     border: none;
@@ -297,4 +297,10 @@
     justify-content: flex-start;
     margin-top: -4%;
     align-items: flex-start;
+}
+.container-filter-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    align-items: flex-end;
 }
