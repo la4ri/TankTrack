@@ -5,65 +5,91 @@ import '../../style/container.css';
 
 const FrotaemOperacaoPage = () => {
     const [rotas, setRotas] = useState([]);
-    const [filtro, setFiltro] = useState({
-        origem: '',
-        chegada: ''
-    });
+    const [rotasOriginais, setRotasOriginais] = useState([]);
+    const [filtroDataSaida, setFiltroDataSaida] = useState('');
+    const [filtroDataChegada, setFiltroDataChegada] = useState('');
 
     useEffect(() => {
+        fetchRotas();
+    }, []);
+
+    const fetchRotas = () => {
         axios.get('https://node-deploy-api-d20r.onrender.com/rotas')
             .then(response => {
                 setRotas(response.data);
+                setRotasOriginais(response.data);
             })
             .catch(error => {
                 console.error("There was an error fetching the routes!", error);
             });
-    }, []);
-
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setFiltro({ ...filtro, [name]: value });
     };
 
-    const filteredRotas = rotas.filter(rota => {
-        const origemMes = new Date(filtro.origem).getMonth();
-        const chegadaMes = new Date(filtro.chegada).getMonth();
-        const dataPartidaMes = new Date(rota.data_partida_rota).getMonth();
-        const dataChegadaMes = new Date(rota.data_chegada_rota).getMonth();
-        
-        return (
-            (!filtro.origem || origemMes === dataPartidaMes) &&
-            (!filtro.chegada || chegadaMes === dataChegadaMes)
-        );
-    });
+    const handleFiltrar = () => {
+        let rotasFiltradas = [...rotasOriginais];
+
+        if (filtroDataSaida) {
+            rotasFiltradas = rotasFiltradas.filter(rota => {
+                const dataSaida = formatDate(rota.data_partida_rota);
+                return dataSaida === filtroDataSaida;
+            });
+        }
+
+        if (filtroDataChegada) {
+            rotasFiltradas = rotasFiltradas.filter(rota => {
+                const dataChegada = formatDate(rota.data_chegada_rota);
+                return dataChegada === filtroDataChegada;
+            });
+        }
+
+        setRotas(rotasFiltradas);
+    };
+
+    const handleLimparFiltros = () => {
+        setFiltroDataSaida('');
+        setFiltroDataChegada('');
+        setRotas(rotasOriginais);
+    };
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear().toString();
+        return `${year}-${month}-${day}`;
+    };
 
     return (
-        <div className="containerTransportadora">
-            <div className="content">
+        <div className="main">
+            <div className="main-content">
                 <h1>Frota em Operação</h1>
                 <div className="filters">
-                    <div className="filter-item">
+                    <div className="filter-group">
                         <label>Filtrar por Data Saída Origem:</label>
                         <input
-                            type="month"
-                            name="origem"
-                            value={filtro.origem}
-                            onChange={handleInputChange}
+                            type="date"
+                            value={filtroDataSaida}
+                            onChange={(e) => setFiltroDataSaida(e.target.value)}
                         />
                     </div>
-                    <div className="filter-item">
+                    <div className="filter-group">
                         <label>Filtrar por Previsão Chegada:</label>
                         <input
-                            type="month"
-                            name="chegada"
-                            value={filtro.chegada}
-                            onChange={handleInputChange}
+                            type="date"
+                            value={filtroDataChegada}
+                            onChange={(e) => setFiltroDataChegada(e.target.value)}
                         />
                     </div>
                 </div>
-                <button className="filter-button">Filtrar</button>
+                <div className='container-filter-buttons'>
+                    <button className="filter-button" onClick={handleFiltrar}>
+                        Filtrar
+                    </button>
+                    <button className="clear-button" onClick={handleLimparFiltros}>
+                        Limpar Filtros
+                    </button>
+                </div>
                 <div className="table-container">
-                    <table className="rota-table">
+                    <table className="product-table">
                         <thead>
                             <tr>
                                 <th>Id Veículo</th>
@@ -75,16 +101,22 @@ const FrotaemOperacaoPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredRotas.map((rota) => (
-                                <tr key={rota.id_rota}>
-                                    <td>{rota.id_veiculo}</td>
-                                    <td>{rota.destino_rota}</td>
-                                    <td>{rota.data_prevista ? new Date(rota.data_prevista).toLocaleDateString() : 'N/A'}</td>
-                                    <td>{new Date(rota.data_partida_rota).toLocaleDateString()}</td>
-                                    <td>{rota.data_prevista ? new Date(rota.data_prevista).toLocaleDateString() : 'N/A'}</td>
-                                    <td>{new Date(rota.data_chegada_rota).toLocaleDateString()}</td>
+                            {rotas.length > 0 ? (
+                                rotas.map((rota) => (
+                                    <tr key={rota.id_rota}>
+                                        <td>{rota.id_veiculo}</td>
+                                        <td>{rota.destino_rota}</td>
+                                        <td>{rota.data_prevista ? new Date(rota.data_prevista).toLocaleDateString() : 'N/A'}</td>
+                                        <td>{new Date(rota.data_partida_rota).toLocaleDateString()}</td>
+                                        <td>{rota.data_prevista ? new Date(rota.data_prevista).toLocaleDateString() : 'N/A'}</td>
+                                        <td>{new Date(rota.data_chegada_rota).toLocaleDateString()}</td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="6" style={{ textAlign: 'center' }}>Não há rotas para mostrar</td>
                                 </tr>
-                            ))}
+                            )}
                         </tbody>
                     </table>
                 </div>
