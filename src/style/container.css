@@ -173,6 +173,10 @@
     margin-top: 20px;
 }
 
+.table-container {
+    overflow-x: auto;
+    max-width: 100%;
+}
 .product-table {
     width: 100%;
     border-collapse: collapse;
