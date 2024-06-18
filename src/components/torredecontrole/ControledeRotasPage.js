@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import UsuarioModal from './UsuarioModal.js';
+import RotasModal from './RotasModal.js';
 import editIcon from '../../img/edit.svg';
 import deleteIcon from '../../img/delete.svg';
 import addIcon from '../../img/add.svg';
@@ -280,7 +280,7 @@ const ControledeRotasPage = () => {
                         </tbody>
                     </table>
                 </div>
-                <UsuarioModal
+                <RotasModal
                     open={open}
                     handleClose={handleClose}
                     rota={selectedRota}
