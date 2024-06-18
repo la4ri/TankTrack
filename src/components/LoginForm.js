@@ -7,10 +7,12 @@ import logopequena from '../img/logopequena.png';
 const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
 
         const data = {
             email_usuario: username,
@@ -30,10 +32,14 @@ const LoginForm = () => {
                 throw new Error('Erro ao efetuar login');
             }
 
-            navigate('/menu'); // navegação programática
+            const responseData = await response.json();
+            localStorage.setItem('nome_usuario', responseData.nome_usuario); // Salva o nome de usuário
+            navigate('/menu'); // Navega para o menu após o login bem-sucedido
         } catch (error) {
             console.error('Erro:', error);
             alert('Erro ao efetuar login. Por favor, verifique suas credenciais.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -42,7 +48,7 @@ const LoginForm = () => {
             <div className="container">
                 <img src={logogrande} alt="Logo" className="logogrande" />
                 <form className="login-form" id="loginForm" onSubmit={handleSubmit}>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label htmlFor="username">Login:</label>
                         <input
                             type="text"
@@ -52,7 +58,7 @@ const LoginForm = () => {
                             required
                         />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label htmlFor="password">Senha:</label>
                         <input
                             type="password"
@@ -62,7 +68,18 @@ const LoginForm = () => {
                             required
                         />
                     </div>
-                    <button type="submit" className="botaologin">Entrar</button>
+                    <div className="button-container">
+                        <button type="submit" className="botaologin" disabled={loading}>
+                            {loading ? (
+                                <>
+                                    Carregando...
+                                    <div className="loading-spinner"></div>
+                                </>
+                            ) : (
+                                'Entrar'
+                            )}
+                        </button>
+                    </div>
                     <p className="esquecersenha">Esqueceu sua senha? Clique Aqui</p>
                 </form>
                 <img src={logopequena} alt="Logo" className="logopequena" />
