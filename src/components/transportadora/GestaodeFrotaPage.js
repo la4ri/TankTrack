@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import editIcon from '../../img/edit.svg';
 import saveIcon from '../../img/save.svg';
+import '../../style/menu.css';
 import '../../style/container.css';
 
-const GestaodeFrotaPage = () => {
+const AlertasdeConducaoPage = () => {
     const [viagens, setViagens] = useState([]);
     const [viagensOriginais, setViagensOriginais] = useState([]);
+    const [motoristas, setMotoristas] = useState([]);
     const [filtroDataSaida, setFiltroDataSaida] = useState('');
     const [filtroDataChegada, setFiltroDataChegada] = useState('');
     const [editingVolumeId, setEditingVolumeId] = useState(null);
@@ -14,10 +16,11 @@ const GestaodeFrotaPage = () => {
 
     useEffect(() => {
         fetchViagens();
+        fetchMotoristas();
     }, []);
 
     const fetchViagens = () => {
-        axios.get('https://node-deploy-api-d20r.onrender.com/viagens')
+        axios.get('https://node-deploy-api-d20r.onrender.com/alertas-conducao')
             .then(response => {
                 setViagens(response.data);
                 setViagensOriginais(response.data);
@@ -25,6 +28,21 @@ const GestaodeFrotaPage = () => {
             .catch(error => {
                 console.error("Erro ao buscar viagens!", error);
             });
+    };
+
+    const fetchMotoristas = () => {
+        axios.get('https://node-deploy-api-d20r.onrender.com/motoristas')
+            .then(response => {
+                setMotoristas(response.data);
+            })
+            .catch(error => {
+                console.error("Erro ao buscar motoristas!", error);
+            });
+    };
+
+    const getMotoristaInfo = (id_motorista) => {
+        const motorista = motoristas.find(motorista => motorista.id_motorista === id_motorista);
+        return motorista ? motorista.nome_completo : 'Desconhecido';
     };
 
     const handleFiltrar = () => {
@@ -118,6 +136,8 @@ const GestaodeFrotaPage = () => {
                         <thead>
                             <tr>
                                 <th>Id Viagem</th>
+                                <th>Id Motorista</th>
+                                <th>Nome do Motorista</th>
                                 <th>Primeira Parada</th>
                                 <th>Data Prevista</th>
                                 <th>Volume m<sup>3</sup></th>
@@ -132,6 +152,8 @@ const GestaodeFrotaPage = () => {
                                 viagens.map((viagem) => (
                                     <tr key={viagem.id_viagem}>
                                         <td>{viagem.id_viagem}</td>
+                                        <td>{viagem.id_motorista}</td>
+                                        <td>{getMotoristaInfo(viagem.id_motorista)}</td>
                                         <td>{viagem.primeira_parada}</td>
                                         <td>{new Date(viagem.data_prevista_1).toLocaleDateString()}</td>
                                         <td>
@@ -169,7 +191,7 @@ const GestaodeFrotaPage = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="8" style={{ textAlign: 'center' }}>Não há viagens para mostrar</td>
+                                        <td colSpan="10" style={{ textAlign: 'center' }}>Não há viagens para mostrar</td>
                                 </tr>
                             )}
                         </tbody>
@@ -180,4 +202,4 @@ const GestaodeFrotaPage = () => {
     );
 };
 
-export default GestaodeFrotaPage;
+export default AlertasdeConducaoPage;
