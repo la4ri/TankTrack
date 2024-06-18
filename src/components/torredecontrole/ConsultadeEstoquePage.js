@@ -36,7 +36,7 @@ const ConsultadeEstoquePage = () => {
     };
 
     const fetchEstoque = () => {
-        const url = 'https://node-deploy-api-d20r.onrender.com/estoque';
+        const url = 'https://node-deploy-api-d20r.onrender.com/produtos';
         axios.get(url)
             .then(response => {
                 setEstoque(response.data);
