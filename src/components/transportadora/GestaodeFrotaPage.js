@@ -20,7 +20,7 @@ const AlertasdeConducaoPage = () => {
     }, []);
 
     const fetchViagens = () => {
-        axios.get('https://node-deploy-api-d20r.onrender.com/alertas-conducao')
+        axios.get('https://node-deploy-api-d20r.onrender.com/viagens')
             .then(response => {
                 setViagens(response.data);
                 setViagensOriginais(response.data);

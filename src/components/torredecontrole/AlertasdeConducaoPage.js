@@ -3,7 +3,7 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import '../../style/menu.css';
 import '../../style/container.css';
-import '../../style/modal2.css'; // Importação do arquivo CSS do modal
+import '../../style/modal2.css';
 
 // Configura o react-modal para o elemento raiz do aplicativo
 Modal.setAppElement('#root');
@@ -22,7 +22,7 @@ const AlertasdeConducaoPage = () => {
         id_viagem: '',
         tipo_alerta_conducao: '',
         descricao_alerta_conducao: '',
-        data_alerta_conducao: '' // Novo campo de data
+        data_alerta_conducao: ''
     });
 
     useEffect(() => {
